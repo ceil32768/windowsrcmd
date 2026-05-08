@@ -55,3 +55,27 @@ RunOrActivate(AppPath, WinTitle, ExcludeTitle := "") {
 
 ; 右側 Alt + E = Windows File Explorer
 >!e::RunOrActivate("explorer.exe", "ahk_class CabinetWClass")
+
+; 右側 Alt + T = Notion
+>!t::RunOrActivate(LocalProgDir "Notion\Notion.exe", "ahk_exe Notion.exe")
+
+; ==========================================
+; Notion 專用：Vim 導航層 (R-Alt + hjkl)
+; ==========================================
+#HotIf WinActive("ahk_exe Notion.exe")
+
+; 基礎導航
+>!h::Send "{Left}"
+>!j::Send "{Down}"
+>!k::Send "{Up}"
+>!l::Send "{Right}"
+
+; 解決小拇指痛點：R-Alt + Space = 打勾 (取代 Ctrl + Enter)
+>!Space::Send "^{Enter}"
+
+; 額外加速：R-Alt + d = 刪除該行
+>!d::Send "{Esc}{BackSpace}"
+
+#HotIf
+
+
