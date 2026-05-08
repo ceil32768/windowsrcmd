@@ -70,7 +70,7 @@ RunOrActivate(AppPath, WinTitle, ExcludeTitle := "") {
 >!k::Send "{Up}"
 >!l::Send "{Right}"
 
-; 解決小拇指痛點：R-Alt + Space = 打勾 (取代 Ctrl + Enter)
+; R-Alt + Space = 打勾 (取代 Ctrl + Enter)
 >!Space::Send "^{Enter}"
 
 ; 額外加速：R-Alt + d = 刪除該行
