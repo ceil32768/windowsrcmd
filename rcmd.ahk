@@ -7,7 +7,7 @@ SetTitleMatchMode 2
 ; 預設使用系統環境變數自動抓取路徑，支援跨電腦隨插即用。
 ; 若你的軟體安裝在自訂路徑 (如 D:\Tools)，請直接將以下變數替換為絕對路徑。
 
-ChromeAppDir := A_AppData "C:\Users\qerpz\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Chrome Apps"
+ChromeAppDir := "C:\Users\qerpz\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Chrome Apps\"
 LocalProgDir := EnvGet("LOCALAPPDATA") "\Programs\" ; 透過 EnvGet 正確抓取 LocalAppData
 
 ; 增加 Program Files 的配置。利用 A_ProgramFiles 抓取 C:\Program Files
