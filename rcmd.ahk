@@ -25,12 +25,46 @@ RunOrActivate(AppPath, WinTitle, ExcludeTitle := "") {
     }
 }
 
+
+; ==========================================
+; 核心功能：滑鼠瞬移 (可選擇是否點擊喚醒)
+; ==========================================
+CenterMouse(DoClick := false) {
+    ; 將座標基準設定為「當前啟用的視窗」
+    CoordMode "Mouse", "Window"
+    
+    ; 抓取當前視窗的寬度和高度
+    WinGetPos(,, &Width, &Height, "A")
+    
+    if (Width > 0 && Height > 0) {
+        ; 1. 瞬間移動滑鼠到視窗正中心
+        MouseMove(Width/1.2, Height/2, 0)
+        
+        ; 2. 如果傳入的參數要求點擊 (DoClick 為 true)，才執行點擊
+        if (DoClick) {
+            Sleep(50) ; 給瀏覽器一點反應時間
+            Click()
+        }
+    }
+}
+
+
+
 ; ==========================================
 ; 快捷鍵設定區 ( >! 代表右側 Alt 鍵 )
 ; ==========================================
 
 ; 右側 Alt + A = Ask Gemini
->!a::RunOrActivate(ChromeAppDir "Google Gemini.lnk", "Google Gemini ahk_exe chrome.exe")
+>!a:: {
+    ; 1. 執行你的精準呼叫
+    RunOrActivate(ChromeAppDir "Google Gemini.lnk", "Google Gemini ahk_exe chrome.exe")
+    
+    ; 2. 等待視窗確實成為 Active (最多等 2 秒，防止冷啟動卡頓)
+    if WinWaitActive("Google Gemini ahk_exe chrome.exe",, 2) {
+        ; 3. 視窗準備好後，瞬移並點擊正中央喚醒 DOM
+        CenterMouse(true) 
+    }
+}
 
 ; 右側 Alt + J = Google (排除 Gemini，避免標題誤判)
 >!j::RunOrActivate(ChromeAppDir "Google.lnk", "Google ahk_exe chrome.exe", "Gemini")
