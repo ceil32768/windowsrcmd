@@ -53,3 +53,5 @@ RunOrActivate(AppPath, WinTitle, ExcludeTitle := "") {
 ; 右側 Alt + G = Game Unreal Engine
 >!g::RunOrActivate(UnrealEngineDir "UnrealEditor.exe", "ahk_exe UnrealEditor.exe")
 
+; 右側 Alt + E = Windows File Explorer
+>!e::RunOrActivate("explorer.exe", "ahk_class CabinetWClass")
