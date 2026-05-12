@@ -118,7 +118,7 @@ CenterMouse(DoClick := false) {
 #HotIf
 
 
-
+; key binding
 
 ; ==========================================
 ; 全域改鍵：Caps Lock 變為 Esc
@@ -127,4 +127,25 @@ CenterMouse(DoClick := false) {
 
 ; (選用) 如果你偶爾還是需要打全大寫，按 Shift + Caps Lock 就可以正常切換
 +CapsLock::CapsLock
+
+
+
+; ==========================================
+; 🍎 左側 Alt 模擬 Mac Command 鍵 (Left Alt)
+; ==========================================
+
+; <! 代表左側 Alt
+<!c::Send "^{c}" ; Left Alt + C = 複製
+<!v::Send "^{v}" ; Left Alt + V = 貼上
+<!x::Send "^{x}" ; Left Alt + X = 剪下
+<!z::Send "^{z}" ; Left Alt + Z = 復原
+<!s::Send "^{s}" ; Left Alt + S = 存檔
+<!a::Send "^{a}" ; Left Alt + A = 全選
+
+; ==========================================
+; 🛑 重要：防止單擊 Alt 觸發系統選單 (Alt Menu)
+; ==========================================
+; 在 Windows 中，單按一下 Alt 會讓焦點跳到頂部選單。
+; 為了防止這種情況干擾你的編輯心流，我們攔截單純的左 Alt 釋放動作。
+~LAlt::Send "{Blind}{vkE8}"
 
