@@ -113,3 +113,13 @@ CenterMouse(DoClick := false) {
 #HotIf
 
 
+
+
+; ==========================================
+; 全域改鍵：Caps Lock 變為 Esc
+; ==========================================
+*CapsLock::Send "{Blind}{Esc}"
+
+; (選用) 如果你偶爾還是需要打全大寫，按 Shift + Caps Lock 就可以正常切換
++CapsLock::CapsLock
+
