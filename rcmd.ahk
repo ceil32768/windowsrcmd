@@ -151,3 +151,6 @@ CenterMouse(DoClick := false) {
 ; 為了防止這種情況干擾你的編輯心流，我們攔截單純的左 Alt 釋放動作。
 ~LAlt::Send "{Blind}{vkE8}"
 
+; Bluetooth
+!b::Run("ms-settings:bluetooth")
+
