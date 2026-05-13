@@ -77,8 +77,10 @@ CenterMouse(DoClick := false) {
 ; 右側 Alt + O = Obsidian
 >!o::RunOrActivate(LocalProgDir "Obsidian\Obsidian.exe", "ahk_exe Obsidian.exe")
 
-; 右側 Alt + C = Cursor
->!c::RunOrActivate(LocalProgDir "cursor\Cursor.exe", "ahk_exe Cursor.exe")
+; 右側 Alt + I = IDE
+; >!i::RunOrActivate(LocalProgDir "cursor\Cursor.exe", "ahk_exe Cursor.exe")
+
+>!i::RunOrActivate(LocalProgDir "antigravity\antigravity.exe", "ahk_exe antigravity.exe")
 
 ; 右側 Alt + M = Music
 >!m::RunOrActivate(ChromeAppDir "YouTube Music.lnk", "YouTube Music ahk_exe chrome.exe")
