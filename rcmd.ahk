@@ -97,8 +97,11 @@ CenterMouse(DoClick := false) {
 ; 右側 Alt + E = Windows File Explorer
 >!e::RunOrActivate("explorer.exe", "ahk_class CabinetWClass")
 
-; 右側 Alt + T = Notion
->!t::RunOrActivate(LocalProgDir "Notion\Notion.exe", "ahk_exe Notion.exe")
+; 右側 Alt + Q = Notion
+>!q::RunOrActivate(LocalProgDir "Notion\Notion.exe", "ahk_exe Notion.exe")
+
+; 右側 Alt + T = Git Bash
+>!t::RunOrActivate("C:\Program Files\Git\git-bash.exe", "ahk_exe mintty.exe")
 
 ; ==========================================
 ; Notion 專用：Vim 導航層 (R-Alt + hjkl)
