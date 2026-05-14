@@ -154,3 +154,23 @@ CenterMouse(DoClick := false) {
 ; Bluetooth
 !b::Run("ms-settings:bluetooth")
 
+
+
+; =========================================
+; 只在 Chrome 瀏覽器中生效的「Alt 宇宙」
+; =========================================
+#HotIf WinActive("ahk_exe chrome.exe")
+
+; Alt+T (Cmd+T) -> new tab
+!t::Send("^t")
+
+; Alt+N (Cmd+N) -> new window
+!n::Send("^n")
+
+; Alt + w = close the window
+!w::Send("^w")
+
+; 結束限定範圍，後面的腳本會恢復全域生效
+#HotIf
+
+
