@@ -155,7 +155,7 @@ CenterMouse(DoClick := false) {
 ~LAlt::Send "{Blind}{vkE8}"
 
 ; Bluetooth
-!b::Run("ms-settings:bluetooth")
+>!b::Run("ms-settings:bluetooth")
 
 
 
