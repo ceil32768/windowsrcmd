@@ -31,6 +31,8 @@ RunOrActivate(AppPath, WinTitle, ExcludeTitle := "") {
 }
 
 
+
+
 ; ==========================================
 ; 核心功能：滑鼠瞬移 (可選擇是否點擊喚醒)
 ; ==========================================
@@ -70,6 +72,7 @@ CenterMouse(DoClick := false) {
         CenterMouse(true) 
     }
 }
+
 
 ; 右側 Alt + J = Google (排除 Gemini，避免標題誤判)
 >!j::RunOrActivate(ChromeAppDir "Google.lnk", "Google ahk_exe chrome.exe", "Gemini")
@@ -125,14 +128,6 @@ CenterMouse(DoClick := false) {
 
 ; key binding
 
-; ==========================================
-; 全域改鍵：Caps Lock 變為 Esc
-; ==========================================
-*CapsLock::Send "{Blind}{Esc}"
-
-; (選用) 如果你偶爾還是需要打全大寫，按 Shift + Caps Lock 就可以正常切換
-+CapsLock::CapsLock
-
 
 
 ; ==========================================
@@ -177,3 +172,108 @@ CenterMouse(DoClick := false) {
 #HotIf
 
 
+
+
+
+; old setting
+; ==========================================
+; 全域改鍵：Caps Lock 變為 Esc
+; ==========================================
+;*CapsLock::Send "{Blind}{Esc}"
+
+; (選用) 如果你偶爾還是需要打全大寫，按 Shift + Caps Lock 就可以正常切換
+;+CapsLock::CapsLock
+; old setting end
+
+
+
+
+
+
+
+
+
+
+
+
+
+; ==========================================
+; UE5 Vim 狀態機
+; ==========================================
+
+
+; ==========================================
+; 全域變數宣告區
+; ==========================================
+global UEVimMode := false  ; 預設進入 UE 時是 Insert 模式
+
+#HotIf WinActive("ahk_exe UnrealEditor.exe")
+
+; Alt + h j k l = 觸發 BA 的 Ctrl + 方向鍵 (沿著節點連線跳躍/選取)
+!h::Send("^{Left}")
+!j::Send("^{Down}")
+!k::Send("^{Up}")
+!l::Send("^{Right}")
+
+; ------------------------------------------
+; 1. 模式切換觸發器
+; ------------------------------------------
+; 按下 m ➔ 進入 Normal Mode
+~m::
+{
+    global UEVimMode := true
+    ToolTip("🔵 NORMAL", 50, 50)
+    SetTimer(() => ToolTip(), -1000) ; 1秒後關閉提示
+}
+
+; 按下 i ➔ 進入 Insert Mode
+$i::
+{
+    global UEVimMode
+    if (UEVimMode) {
+        UEVimMode := false
+        ToolTip("🟢 INSERT", 50, 50)
+        SetTimer(() => ToolTip(), -1000)
+    } else {
+        Send("{Blind}i") ; 如果已經在 Insert 模式，就正常打出 i
+    }
+}
+
+; 自動進入 Insert Mode 的防呆機制
+; 當按下 Tab (BA搜尋節點)、F2 (重新命名)、Enter 時，自動切回打字模式
+~Tab::
+~F2::
+{
+    global UEVimMode
+    if (UEVimMode) {
+        UEVimMode := false
+        ToolTip("🟢 INSERT", 50, 50)
+        SetTimer(() => ToolTip(), -1000)
+    }
+}
+
+; ------------------------------------------
+; 2. Normal Mode 的專屬按鍵映射 (只有在 UEVimMode = true 時生效)
+; ------------------------------------------
+#HotIf WinActive("ahk_exe UnrealEditor.exe") and UEVimMode
+
+; 基礎：h j k l = 方向鍵 (在節點之間移動)
+h::Send("{Left}")
+j::Send("{Down}")
+k::Send("{Up}")
+l::Send("{Right}")
+
+; u = 復原 (Undo)
+u::Send("^{z}")
+
+; d = 刪除
+d::Send("{Delete}")
+
+; 搭配 Shift 的 h j k l = Shift + 方向鍵
+; (BA 裡面用來「物理上」移動節點的位置)
++h::Send("+{Left}")
++j::Send("+{Down}")
++k::Send("+{Up}")
++l::Send("+{Right}")
+
+#HotIf
