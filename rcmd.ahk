@@ -276,4 +276,29 @@ d::Send("{Delete}")
 +k::Send("+{Up}")
 +l::Send("+{Right}")
 
+
+
+; ==========================================
+; 🔍 畫面縮放 (自帶準星版)
+; 觸發時，滑鼠自動飛到畫面正中心，然後執行縮放
+; ==========================================
+
+; Shift + < (縮小)
++,::
+{
+    CoordMode("Mouse", "Client")
+    WinGetClientPos(,, &Width, &Height, "A")
+    MouseMove(Width/2, Height/2, 0) ; 1. 瞬間移動到中心
+    Send("{WheelDown 2}")           ; 2. 執行縮小
+}
+
+; Shift + > (放大)
++.::
+{
+    CoordMode("Mouse", "Client")
+    WinGetClientPos(,, &Width, &Height, "A")
+    MouseMove(Width/2, Height/2, 0) ; 1. 瞬間移動到中心
+    Send("{WheelUp 2}")             ; 2. 執行放大
+}
+
 #HotIf
