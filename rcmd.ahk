@@ -175,15 +175,14 @@ CenterMouse(DoClick := false) {
 
 
 
-; old setting
 ; ==========================================
 ; 全域改鍵：Caps Lock 變為 Esc
 ; ==========================================
-;*CapsLock::Send "{Blind}{Esc}"
+*CapsLock::Send "{Blind}{Esc}"
 
 ; (選用) 如果你偶爾還是需要打全大寫，按 Shift + Caps Lock 就可以正常切換
-;+CapsLock::CapsLock
-; old setting end
++CapsLock::CapsLock
+
 
 
 
@@ -218,16 +217,16 @@ global UEVimMode := false  ; 預設進入 UE 時是 Insert 模式
 ; ------------------------------------------
 ; 1. 模式切換觸發器
 ; ------------------------------------------
-; 按下 m ➔ 進入 Normal Mode
-~m::
+; 按下 Caps Lock + m ➔ 進入 Normal Mode
+~CapsLock & m::
 {
     global UEVimMode := true
     ToolTip("🔵 NORMAL", 50, 50)
     SetTimer(() => ToolTip(), -1000) ; 1秒後關閉提示
 }
 
-; 按下 i ➔ 進入 Insert Mode
-$i::
+; 按下 capslock+i ➔ 進入 Insert Mode
+~CapsLock & i::
 {
     global UEVimMode
     if (UEVimMode) {
