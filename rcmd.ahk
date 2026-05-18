@@ -45,7 +45,7 @@ CenterMouse(DoClick := false) {
     
     if (Width > 0 && Height > 0) {
         ; 1. 瞬間移動滑鼠到視窗正中心
-        MouseMove(Width/1.2, Height/2, 0)
+        MouseMove(Width/1.07, Height/2, 0)
         
         ; 2. 如果傳入的參數要求點擊 (DoClick 為 true)，才執行點擊
         if (DoClick) {
