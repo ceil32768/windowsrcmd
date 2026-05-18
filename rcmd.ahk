@@ -63,12 +63,25 @@ CenterMouse(DoClick := false) {
 
 ; 右側 Alt + A = Ask Gemini
 >!a:: {
-    ; 1. 執行你的精準呼叫
-    RunOrActivate(ChromeAppDir "Google Gemini.lnk", "Google Gemini ahk_exe chrome.exe")
+    TargetTitle := "Google Gemini ahk_exe chrome.exe"
+    TargetApp := ChromeAppDir "Google Gemini.lnk"
+
+    ; 情況一：如果連半個 Gemini 視窗都沒開，就直接執行啟動
+    if !WinExist(TargetTitle) {
+        Run(TargetApp)
+    } 
+    ; 情況二：如果「目前已經在」Gemini 視窗中，就強制啟用最底層的另一個，達成循環切換 (Cycle)
+    else if WinActive(TargetTitle) {
+        WinActivateBottom(TargetTitle)
+    } 
+    ; 情況三：如果在其他軟體（如 UE5 或 Obsidian），就先喚醒最近使用的那一個 Gemini
+    else {
+        WinActivate(TargetTitle)
+    }
     
-    ; 2. 等待視窗確實成為 Active (最多等 2 秒，防止冷啟動卡頓)
-    if WinWaitActive("Google Gemini ahk_exe chrome.exe",, 2) {
-        ; 3. 視窗準備好後，瞬移並點擊正中央喚醒 DOM
+    ; 等待視窗確實成為 Active (最多等 2 秒，防止冷啟動卡頓)
+    if WinWaitActive(TargetTitle,, 2) {
+        ; 視窗準備好後，瞬移並點擊喚醒 DOM
         CenterMouse(true) 
     }
 }
